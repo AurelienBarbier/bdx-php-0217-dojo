@@ -13,10 +13,9 @@ class TrimTests  extends TestCase
     /**
      * @dataProvider dataToBeTrimed
      */
-    public function testYourTrim(string $chaine) {
+    public function testYourTrim(string $chaine ) {
 
-        $this->assertEquals (trim($chaine), Trim::myTrimA($chaine));
-        $this->assertEquals (trim($chaine), Trim::myTrimB($chaine));
+        $this->assertEquals(trim($chaine), Trim::myTrim($chaine));
     }
 
     public function dataToBeTrimed()

@@ -1,6 +1,6 @@
 <?php
 
-use \Dojo\Convertor;
+use \Dojo\Morse\Convertor;
 
 /**
  * Class ConvertorTest
@@ -15,9 +15,13 @@ use \Dojo\Convertor;
 
 class ConvertorTest extends \PHPUnit\Framework\TestCase
 {
-    public function testIsTrue(){
+    public function testIsTrue()
+    {
 
         $this->assertEquals(true, true);
-    }
+        $this->assertEquals('E', Convertor::controller('.'));
+        $this->assertEquals('S', Convertor::controller('...'));
+        // $this->assertEquals('SOS', Convertor::controller('... --- ...'));
 
+    }
 }

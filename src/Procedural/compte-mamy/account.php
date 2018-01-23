@@ -8,3 +8,12 @@
  *	anniversaire de Gabriel la somme acquise sur son compte.
  *
  */
+
+$compte = 1000;
+$interetTaux = 2.25;
+
+for($i=0;$i<=20;$i++){
+    $interetReel = $compte * $interetTaux / 100;
+    $compte = $compte + $interetReel;
+    echo "Année " . $i .' : ' . $compte . "\n";
+}

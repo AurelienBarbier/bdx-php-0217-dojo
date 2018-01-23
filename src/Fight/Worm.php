@@ -1,50 +1,50 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: root
- * Date: 30/05/17
- * Time: 15:22
+ * Date: 10/10/17
+ * Time: 11:01
  */
-
-
-
 class Worm
 {
-    private $_pointVie;
-    private $_pointAttaque;
+    private $_life = 100;
+    private $_strength;
+    private $_name;
 
-    public function __construct($pointVie, $pointAttaque)
-    {
-        $this->_pointVie = $pointVie;
-        $this->_pointAttaque = $pointAttaque;
-    }
-
-    public function setPointVie($point)
-    {
-        $this->_pointVie = $point;
+    public function __construct($name, $strength){
+        $this->_strength = $strength;
+        $this->_name = $name;
     }
 
-    public function setPointAttaque($point)
-    {
-        $this->_pointAttaque = $point;
+    public function getLife(){
+        return $this->_life;
     }
 
-    public function getPointVie()
-    {
-        return $this->_pointVie;
+    public function setLife($life) {
+        $this->_life = $life;
     }
 
-    public function getPointAttaque()
-    {
-        return $this->_pointAttaque;
+    public function getStrength() {
+        return $this->_strength;
     }
 
-    public function subPointVie($point)
+    public function setStrength($strength){
+        $this->_strength = $strength;
+    }
+
+    public function attack(Worm $target) {
+        $target->setLife($target->getLife() - $this->_strength);
+    }
+
+    public function isAlive(){
+        return $this->getLife() > 0;
+    }
+
+    public function __toString()
     {
-        $this->_pointVie -= $point;
+        return $this->_name . " (" .  $this->getLife() . ' PV)';
     }
-    public function isDead(){
-        return $this->_pointVie <= 0;
-    }
+
 
 }

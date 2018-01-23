@@ -13,3 +13,10 @@ Dans l'ordre d'apparition :
 ### Avant de lancer PHPUnit :
 ```
 composer install
+```
+
+### Lancer PHPUnit 
+
+```php
+./vendor/bin/phpunit ./tests/CLASSNAMETests.php
+```

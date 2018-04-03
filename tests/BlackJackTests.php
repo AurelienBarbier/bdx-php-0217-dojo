@@ -11,16 +11,13 @@ use Dojo\BlackJack\BlackJack;
 class BlackJackTests  extends \PHPUnit\Framework\TestCase
 {
     public function testIsTrue(){
-        self::assertTrue(true);
-        self::assertEquals('player', BlackJack::compareHand([4,'K','K','Q'],[9, 'K', 2]));
-        self::assertEquals('bank', BlackJack::compareHand(['A','K','Q'],['K', 2]));
-        self::assertEquals('bank', BlackJack::compareHand([6,6,8],[9,6,2,2]));
-        self::assertEquals('player', BlackJack::compareHand([9,6,2,2],[6,6,8]));
-        self::assertEquals('player', BlackJack::compareHand([9,6,2,2],[6,6,8]));
-        self::assertEquals(null, BlackJack::compareHand([10,6,5],[10,6,5]));
-        self::assertEquals(null, BlackJack::compareHand([10,10,10],[10,10,9]));
-        self::assertEquals('bank', BlackJack::compareHand(['A','A','A'],[3,3,3]));
-
+        self::assertEquals(true, true);
+        self::assertEquals('Player', BlackJack::getWinner([3, 9, 4], [9, 9, 3]));
+        self::assertEquals('Bank', BlackJack::getWinner([5, 9, 6], [9, 4, 2]));
+        self::assertEquals(null, BlackJack::getWinner([5, 9, 6], [5, 9, 6]));
+        self::assertEquals('Bank', BlackJack::getWinner(['A', 'V', 1], [5, 9, 6]));
+        self::assertEquals('Bank', BlackJack::getWinner(['A', 4, 'A'], ['A', 5]));
     }
+
 }
 

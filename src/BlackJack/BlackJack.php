@@ -10,60 +10,43 @@ namespace Dojo\BlackJack;
  */
 class BlackJack
 {
-    public static function compareHand($bank,$player)
-    {
-        $handPlayer = self::sumCard($player);
-        $handBank = self::sumCard($bank);
+    public function getValue($hand) {
 
-        return self::findWinner($handBank, $handPlayer);
+        $result = 0;
+        $as = 0;
 
-    }
+        foreach ($hand as $value) {
 
-    public static function sumCard($cards){
-        $sum = 0;
-
-        $nbAs = 0;
-
-        foreach ($cards as $card){
-            if(is_numeric($card)){
-                $sum += $card;
-            }else{
-                if($card === 'A'){
-                    $sum += 11;
-                    $nbAs++;
-                }else{
-                    $sum += 10;
+            if (is_numeric($value)) {
+                $result += $value;
+            } else {
+                if ($value === 'A') {
+                    $as++;
+                } else {
+                    $result += 10;
                 }
             }
         }
-
-        while($nbAs > 0 && $sum > 21){
-            $sum -= 10;
-            $nbAs--;
+        while ($result <= 10 && $as > 0) {
+            $result += 11;
+            $as--;
         }
-
-        return $sum;
+        var_dump($result + $as);
+        return $result + $as;
     }
 
-    public static function findWinner($handBank, $handPlayer){
+    public static function getWinner($bank, $player){
 
-        $result = null;
-        if($handBank > 21 && $handPlayer<=21){
-            $result = 'player';
-        }
-        if ($handPlayer > 21 && $handBank<=21){
-            $result = 'bank';
-        }
+        $resultBank = self::getValue($bank);
+        $resultPlayer = self::getValue($player);
 
-        if(($handBank<= 21 && $handPlayer <= 21)){
-            if( $handBank > $handPlayer ){
-                $result = 'bank';
-            }elseif($handBank < $handPlayer ){
-                $result = 'player';
-            }
+        if (($resultBank > $resultPlayer) && ($resultBank <= 21)) {
+            return 'Bank';
         }
-        return $result;
+        if (($resultBank < $resultPlayer) && ($resultPlayer <= 21)) {
+            return 'Player';
+        }
+        return null;
+
     }
-
-
 }

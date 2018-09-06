@@ -1,42 +1,28 @@
 <?php
 
-namespace Dojo\OrderWords;
+$sentence ="e2st 4test Ce1ci un3";
+$finalSentence = [];
+$words = explode(' ', $sentence);
+foreach($words as $word) {
+    for($i=0 ; $i<strlen($word); $i++){
+        $letter=$word[$i];
+        if (is_numeric($letter)) {
+          var_dump($word);
+          $newWord = str_replace($letter, '', $word);
+          var_dump($newWord);
+          //$finalSentence = [$letter => $word];
+          $finalSentence[$letter] = $newWord;
 
-/**
- * Created by PhpStorm.
- * User: root
- * Date: 30/05/17
- * Time: 16:02
- */
-class OrderWords
-{
-    public static function Order($input)
-    {
-        $words = explode (" ", $input );
-        $countWords = count($words);
-        $cleanChainTab = [];
-        for($i=0; $i<$countWords; $i++){
-            $word = $words[$i];
-            $countLetters = strlen($word);
-            $value = "";
-            $index = 0;
-            for($j=0; $j<$countLetters ; $j++){
-                if (is_numeric($word[$j])) {
-                    $index = $word[$j];
-
-                } else {
-                    $value .= $word[$j];
-                    echo $value;
-                }
-            }
-            $index = (int) $index;
-            $cleanChainTab[$index] = $value;
 
         }
-        var_dump ($cleanChainTab);
-        ksort($cleanChainTab);
-        var_dump ($cleanChainTab);
-        $finalWords = implode( " ", $cleanChainTab);
-        return $finalWords;
     }
+
 }
+
+
+ksort($finalSentence);
+
+
+$clearSentence = implode(' ', $finalSentence);
+
+var_dump($clearSentence);

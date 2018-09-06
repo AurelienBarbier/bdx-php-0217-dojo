@@ -6,18 +6,66 @@
  * Date: 10/10/17
  * Time: 12:34
  */
+
+
 class Arena
 {
-    public static function fight($fighter1, $fighter2){
+    private $warrior1;
+    private $warrior2;
 
-        while($fighter1->isAlive() && $fighter2->isAlive()) {
+    /**
+     * @return mixed
+     */
+    public function getWarrior1()
+    {
+        return $this->warrior1;
+    }
 
-            $fighter1->attack($fighter2);
-            $fighter2->attack($fighter1);
+    /**
+     * @param mixed $warrior1
+     */
+    public function setWarrior1($warrior1)
+    {
+        $this->warrior1 = $warrior1;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWarrior2()
+    {
+        return $this->warrior2;
+    }
+
+    /**
+     * @param mixed $warrior2
+     */
+    public function setWarrior2($warrior2)
+    {
+        $this->warrior2 = $warrior2;
+    }
+
+    public function __construct($warrior1,$warrior2)
+    {
+        $this->warrior1 = $warrior1;
+        $this->warrior2 = $warrior2;
+    }
+    public function fightMaggots()
+    {
+        while($this->warrior1->isAlive() && $this->warrior2->isAlive()) {
+            $this->warrior1->setLife($this->warrior1->getLife() - $this->warrior2->getAttack());
+            $this->warrior2->setLife($this->warrior2->getLife() - $this->warrior1->getAttack());
         }
 
-        return ($fighter1->isAlive()) ? $fighter1 :  $fighter2 ;
+        if ($this->warrior1->getLife() > 0 ){
 
+            return $this->warrior1->getName();
+        }
+
+        else {
+
+            return $this->warrior2->getName();
+        }
 
     }
 }

@@ -10,43 +10,60 @@ namespace Dojo\BlackJack;
  */
 class BlackJack
 {
-    public function getValue($hand) {
+    private const ALLOWED_HEADS = [ 'K', 'Q', 'J' ];
+    private const AS = 'A';
 
-        $result = 0;
-        $as = 0;
+    public static function game( array  $playerHand, array $bankHand):?string
+    {
+        $playerResult = self::countValue($playerHand);
+        $bankResult = self::countValue($bankHand);
+        $result = null;
 
-        foreach ($hand as $value) {
+        if(($bankResult > $playerResult || $playerResult > 21) && $bankResult <= 21){
+            $result = 'bank';
 
-            if (is_numeric($value)) {
-                $result += $value;
-            } else {
-                if ($value === 'A') {
-                    $as++;
-                } else {
-                    $result += 10;
-                }
-            }
+        }elseif (($playerResult > $bankResult || $bankResult > 21) && $playerResult <= 21 ){
+
+            $result = 'player';
         }
-        while ($result <= 10 && $as > 0) {
-            $result += 11;
-            $as--;
-        }
-        var_dump($result + $as);
-        return $result + $as;
+
+
+
+
+        return $result;
+
+
     }
 
-    public static function getWinner($bank, $player){
+    public static function countValue(array $hand)
+    {
+        $result = 0;
+        $asCounter = 0;
 
-        $resultBank = self::getValue($bank);
-        $resultPlayer = self::getValue($player);
 
-        if (($resultBank > $resultPlayer) && ($resultBank <= 21)) {
-            return 'Bank';
+        foreach($hand as $card){
+            if (is_numeric($card)) {
+                $result += $card;
+            } elseif (in_array(strtoupper($card), self::ALLOWED_HEADS)) {
+                $result += 10;
+            } elseif (strtoupper($card) == self::AS){
+                ++$asCounter;
+            }
+            else {
+                throw new \Exception('The value ' . $card . ' is not an allowed card');
+            }
         }
-        if (($resultBank < $resultPlayer) && ($resultPlayer <= 21)) {
-            return 'Player';
-        }
-        return null;
 
+         while($asCounter > 0){
+            --$asCounter;
+
+             if ((21 - $result) >= 11){
+                 $result += 11;
+             }else{
+                 ++$result;
+             }
+         }
+
+        return $result;
     }
 }

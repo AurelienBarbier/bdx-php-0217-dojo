@@ -8,43 +8,67 @@
  */
 class Worm
 {
-    private $_life = 100;
-    private $_strength;
-    private $_name;
+    private $attack;
+    private $life;
+    private $name;
 
-    public function __construct($name, $strength){
-        $this->_strength = $strength;
-        $this->_name = $name;
-    }
-
-    public function getLife(){
-        return $this->_life;
-    }
-
-    public function setLife($life) {
-        $this->_life = $life;
-    }
-
-    public function getStrength() {
-        return $this->_strength;
-    }
-
-    public function setStrength($strength){
-        $this->_strength = $strength;
-    }
-
-    public function attack(Worm $target) {
-        $target->setLife($target->getLife() - $this->_strength);
-    }
-
-    public function isAlive(){
-        return $this->getLife() > 0;
-    }
-
-    public function __toString()
+    /**
+     * @return mixed
+     */
+    public function getAttack()
     {
-        return $this->_name . " (" .  $this->getLife() . ' PV)';
+        return $this->attack;
     }
 
+    /**
+     * @param mixed $attack
+     */
+    public function setAttack($attack)
+    {
+        $this->attack = $attack;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLife()
+    {
+        return $this->life;
+    }
+
+    /**
+     * @param mixed $life
+     */
+    public function setLife($life)
+    {
+        $this->life = $life;
+    }
+
+    public function __construct(int $attack, int $life, string $name)
+    {
+        $this->life = $life;
+        $this->attack = $attack;
+        $this->name = $name;
+    }
+
+    public function isAlive()
+    {
+        return ($this->life > 0);
+    }
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
 }
